@@ -332,6 +332,11 @@ div.cell.selected.jupyter-soft-selected:before {
     border-color: transparent;
   }
 }
+.column {
+  float: left;
+  width: 48%;
+  padding: 5px;
+}
 .edit_mode div.cell.selected {
   border-color: #66BB6A;
 }
@@ -411,6 +416,11 @@ div.input_area {
 div.prompt:empty {
   padding-top: 0;
   padding-bottom: 0;
+}
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
 }
 div.unrecognized_cell {
   padding: 5px 5px 5px 0px;
@@ -1235,13 +1245,114 @@ h6:hover .anchor-link {
 </style>
 
 
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 
-<p><a href="https://project.inria.fr/paiss/"><img src="pics/articles/paiss19.png"></a></p>
+<div class="cell border-box-sizing text_cell rendered">
+  <div class="prompt input_prompt"></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html" align="justify">
+<p>PRAIRIE Artificial Intelligence Summer School personal notes</p>
+<p><a href="https://project.inria.fr/paiss/" target="_blank"><img src="pics/articles/paiss19.png"></a></p>
 
-<p>more info comming soon</p>
+<p>
+  All the talks were amazing, but here I will focus on a few elements only:<br><br>
+  <ul>
+    <li><a href="#lecun">Yann LeCun - Energy-Based Self-Supervised Learning</a></li>
+    <!---<li><a href="#noble">Alison Noble - Learning to Interpret Ultrasound Video</a></li>--->
+    <li><a href="#efros">Alexei Efros - Self-Supervised Visual Learning and Synthesis</a></li>
+    <!---<li><a href="#cassell">Justine Cassell - Intelligent Social Agents: dialogue systems that build rapport with their users</a></li>--->
+    <li><a href="#laumond">Jean Paul Laumond - Mathematical foundations of robot motion</a></li>
+    <!---<li><a href="#alishani">Afra Alishahi - Grounded Language Learning, from Sounds & Images to Meaning (and everything in between)</a></li>--->
+    <!---<li><a href="#perez">Patrick Perez - Autonomous Driving and Sustainable Supervision</a></li>--->
+    <li><a href="#moreinfo">more info coming soon</a></li>
+ </ul>
+</p>
+
+<h3 id="lecun">Yann LeCun - Energy-Based Self-Supervised Learning</h3>
+
+<p><img src="pics/articles/paiss19-lecun1.png"></p>
+<p>
+The PAISS conference started with the talk of Yann LeCun about Energy-Based Self-Supervised Learning.<br><br>
+
+One of the goals of this conference is to show the current techniques and applications of machine learning which are a huge amount of successes but also to put these techniques into perspective compared to efficiency of the humans and animals’ world. <br><br>
+
+All the techniques that we use today are mostly dues to supervised learning (for NLP, image recognition, …), this thanks to labelled data.<br><br>
+
+For reinforcement learning (when you don’t tell the machine the correct answer but just tell it if it’s good or bad), there are a lot of applications for learning to play a game, they all use ConvNets, but the efficiency compared to humans is terrible ! I  takes 83 hours
+equivalent real-time (18 million frames) to reach a performance that humans reach in 15 minutes of play. <a href="https://arxiv.org/pdf/1710.02298.pdf" target="_blank">[Hessel ArXiv:1710.02298] </a><br><br>
+
+This brings the issues with the reinforcement learning: it requires too many trials in the real world, so in a game or in a simulation, it is ok to do many trials (still expensive and time taking though) but it is not realistic nor practical in the real world because it can kill and damage and you cannot run the real world faster than real-time on many machines in parallel !<br>
+So, how come that humans do not need to drive many times into a cliff to learn that the car will fall and they’ll die ?<br><br>
+
+<p style="color:DodgerBlue;">How do humans and animals learn so quickly?</p>
+</p>
+
+<div class="row">
+  <div class="column">
+    <img src="pics/articles/paiss19-lecun2.png" style="width:100%">
+  </div>
+  <div class="column">
+    <img src="pics/articles/paiss19-lecun3.png" style="width:100%">
+  </div>
+</div>
+
+<p>
+It is not supervised an it is not reinforced, it is predicted. They learn to make predictions about their environment.
+LeCun explains that if you show a 4 month-old baby a floating car, the baby says dosen’t seem to be giving any interest in it. But after 6 or 8 months of “unsupervised learning” they understand already basic laws of physics like that it is impossible for objects like toy cars to float in air. And they are amazed, they stare at the car with a surprised face because they have understood it goes against “physics laws” !<br><br>
+
+During this part, since it is a bit related to <a href="https://github.com/tgll/poppy-dragster-mini" target="_blank"> what I've done</a> at <a href="https://www.inria.fr/en/" target="_blank">INRIA</a>, I was really expecting him to quote my master thesis supervisor Pierre Yves Oudeyer and the <a href="https://flowers.inria.fr/" target="_blank">Flowers team</a>’s work about <a href="http://www.pyoudeyer.com/ActiveGoalExploration-RAS-2013.pdf" target="_blank">intrinsic motivation</a>, <a href="https://arxiv.org/pdf/1708.02190.pdf" target="_blank">IMGEP</a> <a href="https://www.nature.com/articles/s41583-018-0078-0" target="_blank">curiosity</a>, <a href="https://youtu.be/uAoNzHjzzys" target="_blank">robotic playground</a>. Or the work of <a href="https://scholar.google.co.uk/citations?user=bXEkpesAAAAJ&hl=en&oi=sra" target="_blank">Celeste Kidd</a>.<br>
+And also something related to the way we learn and do predictions about our world with very few observation data is Stanislas Dehaene’s course at College de France “<a href="https://www.college-de-france.fr/site/stanislas-dehaene/course-2011-2012.htm" target="_blank">Le cerveau statisticien : la révolution Bayésienne en sciences cognitives</a>”. He takes the example of the tufas of Josh Tanenbaum in <a href="http://proceedings.mlr.press/v27/salakhutdinov12a/salakhutdinov12a.pdf" target="_blank">bayesian models of human learning inferences</a> which I find a very good and clear example.<br>
+(However, LeCun quoted Emmanuel Dupoux who worked with Stanislas Dehaene :) )<br><br>
+
+So “prediction” is the essence of the intelligence, it is how do we expect stuffs to happen, and this is non supervised. The future of AI will be driven by advances in reinforcement learning, as well as supervised and unsupervised machine learning but “The Revolution Will Not be Supervised.” (nor purely reinforced), as a reference to Gil Scott Heron’s song.<br><br>
+<p><img src="pics/articles/paiss19-lecun4.png"></p>
+<br>
+
+He then make the famous cake analogy:<br>
+<p style="color:DodgerBlue;">
+“If intelligence was a cake, unsupervised learning would be the cake, supervised learning would be the icing on the cake, and reinforcement learning would be the cherry on the cake. We know how to make the icing and the cherry, but we don’t know how to make the cake.” — Yann LeCun</p>
+
+<div class="row">
+  <div class="column">
+    <img src="pics/articles/paiss19-lecun5.png" style="width:100%">
+  </div>
+  <div class="column">
+    <img src="pics/articles/paiss19-lecun6.png" style="width:100%">
+  </div>
+</div>
+
+LeCun also discussed new models and techniques, such as Auto-Encoders, a dimensionality reduction (or compression) algorithm. Autoencoders are considered an “unsupervised” learning technique since they don’t need explicit labels to train on. But to be more precise and as specify by LeCun, they are “self-supervised” because they generate their own labels from the training data.<br><br>
+
+I now call it "self-supervised learning", because "unsupervised" is both a loaded and confusing term. (<a href="https://www.facebook.com/722677142/posts/10155934004262143/" target="_blank">SSL fb post</a>)<br><br>
+
+He made it clear that, while AI systems aren’t as smart as cats or infants, and there are many obstacles still to surmount, the future of AI is wide open.<br>
+
+
+<p style="color:DodgerBlue;">Conclusion on what’s hype:
+  <ul>
+    <li>Self Supervised Learning is the future</li>
+    <li>Hierarchical feature learning for low-resource tasks and massive networks</li>
+    <li>Learning Forward Models for Model-Based Control/RL</li>
+    <li>Energy-Based Approaches</li>
+    <li>Latent-variable models to handle multimodality</li>
+    <li>Regularized Latent Variable models</li>
+    <li>Sparse Latent Variable Models</li>
+    <li>Latent Variable Prediction through a Trainable Encoder</li>
+    <li>We are far from a complete solution and there is still a lot of work to be done in many domains</li>
+  </ul>
+</p>
+
+<p><img src="pics/articles/paiss19-lecun7.png"></p>
+</p>
+<br><br><br><br>
+
+<h3 id="efros">Alexei Efros - Self-Supervised Visual Learning and Synthesis</h3>
+<p><img src="pics/articles/paiss19-efros1.png"></p>
+
+<h3 id="laumond">Jean Paul Laumond - Mathematical foundations of robot motion</h3>
+<p><img src="pics/articles/paiss19-laumond1.png"></p>
+
+<h3 id="moreinfo">More talks comming soon</h3>
+
 
 </div>
 </div>
